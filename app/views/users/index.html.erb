@@ -1,0 +1,32 @@
+<h1>All users</h1>
+
+<div class="col-md-10">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>e-mail</th>
+        <th>Admin</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= link_to user.name, user_path(user) %></td>
+          <td><%= user.email %></td>
+          <td><%= user.admin %></td>
+          <td><%= link_to "Edit entry", edit_user_path(user) %></td>
+          <td>
+            <% if !current_user?(user) %>
+                <%= link_to "delete", user, method: :delete, data: { confirm: "You sure?" } %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

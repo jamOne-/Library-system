@@ -1,0 +1,21 @@
+<h1>Adding new book</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@book) do |f| %>
+      <% @error_object = @book %>
+      <%= render 'shared/error_messages' %>
+
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control' %>
+
+      <%= f.label :author %>
+      <%= f.text_field :author, class: 'form-control' %>
+
+      <%= f.label :year %>
+      <%= f.text_field :year, class: 'form-control' %>
+
+      <%= f.submit "Add this book", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

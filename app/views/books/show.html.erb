@@ -1,0 +1,46 @@
+<h3><%= @book.title %></h3>
+
+<div class="col-md-6">
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>Title:</td>
+        <td><%= @book.title %></td>
+      </tr>
+      <tr>
+        <td>Author:</td>
+        <td><%= @book.author %></td>
+      </tr>
+      <tr>
+        <td>Year:</td>
+        <td><%= @book.year %></td>
+      </tr>
+
+      <% if !@book.ordered %>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Order type:</td>
+          <td>Borrowed</td>
+        </tr>
+        <tr>
+          <td>Expiration time:</td>
+          <td>2015-03-05</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="right">
+  <% if !@book.ordered && logged_in? %>
+    <%= link_to "Order this book", "#", class: "btn btn-lg btn-success" %>
+  <% end %>
+
+  <% if admin? %>
+    <%= link_to "Edit book", edit_book_path(@book), class: "btn btn-lg btn-info" %>
+    <%= link_to "Delete book", @book, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-lg btn-danger" %>
+  <% end %>
+</div>
