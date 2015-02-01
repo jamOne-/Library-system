@@ -1,0 +1,48 @@
+<h1>Order info</h1>
+
+<div class="col-md-6">
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>Order type:</td>
+        <td><%= @order.order_type %></td>
+      </tr>
+      <tr>
+        <td>Expiration time:</td>
+        <td><%= @order.expiration %></td>
+      </tr>
+      <tr>
+        <td>Ordered at:</td>
+        <td><%= @order.updated_at %></td>
+      </tr>
+      <tr>
+        <td>Time left:</td>
+        <td><%= pluralize((@order.expiration - Time.now.to_date).to_i, "day") %> </td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Book title:</td>
+        <td><%= link_to (@order.book.title + ", " + @order.book.author), book_path(@order.book) %></td>
+      </tr>
+      <tr>
+        <td>Ordered by:</td>
+        <td><%= link_to (@order.user.name + ", " + @order.user.email), user_path(@order.user) %></td>
+      </tr>
+
+      <% if admin? %>
+        <tr>
+          <% if @order.order_type == "Just ordered" %>
+            <td><%= link_to "Confirm", @order, method: :patch, class: "btn btn btn-success" %></td>
+          <% else %>
+            <td><%= link_to "Prolong", @order, method: :patch, class: "btn btn btn-success" %></td>
+          <% end %>
+          <td><%= link_to "Delete order", @order, method: :delete, data: { confirm: "You sure?" }, class: "btn btn btn-danger" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

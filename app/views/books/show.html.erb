@@ -1,4 +1,4 @@
-<h3><%= @book.title %></h3>
+<h1>Book info</h1>
 
 <div class="col-md-6">
   <table class="table">
@@ -16,18 +16,30 @@
         <td><%= @book.year %></td>
       </tr>
 
-      <% if !@book.ordered %>
+      <% if @book.ordered %>
         <tr>
           <td></td>
           <td></td>
         </tr>
         <tr>
           <td>Order type:</td>
-          <td>Borrowed</td>
+          <td><%= @book.order.order_type %></td>
         </tr>
         <tr>
           <td>Expiration time:</td>
-          <td>2015-03-05</td>
+          <td><%= @book.order.expiration %></td>
+        </tr>
+        <% if admin? %>
+          <tr>
+            <td></td>
+            <td><%= link_to "Show order info", order_path(@book.order), class: "btn btn btn-info" %></td>
+          </tr>
+        <% end %>
+      <% end %>
+      <% if !@book.ordered && logged_in? %>
+        <tr>
+          <td></td>
+          <td><%= link_to "Order this book", orders_path(:book_id => @book.id), :method => :post, class: "btn btn btn-success" %></td>
         </tr>
       <% end %>
     </tbody>
@@ -35,10 +47,6 @@
 </div>
 
 <div class="right">
-  <% if !@book.ordered && logged_in? %>
-    <%= link_to "Order this book", "#", class: "btn btn-lg btn-success" %>
-  <% end %>
-
   <% if admin? %>
     <%= link_to "Edit book", edit_book_path(@book), class: "btn btn-lg btn-info" %>
     <%= link_to "Delete book", @book, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-lg btn-danger" %>

@@ -1,9 +1,9 @@
 <div class="row">
-  <aside class="col-md-4">
+  <aside class="col-md-6">
     <section class="user_info">
-      <h1>
-        <%= @user.name %>, <%= @user.email %>
-      </h1>
+      <h1> Hello, <%= @user.name %>!</h1>
+      <%= link_to "My orders", orders_user_path(@user), class: "btn btn-primary" %>
+      <%= link_to "Books", books_path, class: "btn btn-info" %>
     </section>
   </aside>
 </div>

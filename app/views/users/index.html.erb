@@ -1,5 +1,21 @@
 <h1>All users</h1>
 
+<div>
+  <%= form_for(@user_query) do |f| %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "search" %>
+
+    <%= f.label :email %>
+    <%= f.text_field :email, class: "search" %>
+
+    <%= f.label :id %>
+    <%= f.text_field :id, class: "search" %>
+
+    <%= f.submit "Search", class: "btn btn-primary search" %>
+  <% end %>
+</div>
+
 <div class="col-md-10">
   <table class="table table-striped">
     <thead>
@@ -8,6 +24,8 @@
         <th>Name</th>
         <th>e-mail</th>
         <th>Admin</th>
+        <th>Toggle admin</th>
+        <th>Orders</th>
         <th>Edit</th>
         <th>Delete</th>
       </tr>
@@ -19,7 +37,9 @@
           <td><%= link_to user.name, user_path(user) %></td>
           <td><%= user.email %></td>
           <td><%= user.admin %></td>
-          <td><%= link_to "Edit entry", edit_user_path(user) %></td>
+          <td><%= link_to "Toggle admin", toggle_admin_user_path(user) %></td>
+          <td><%= link_to "User's orders", orders_user_path(user) %></td>
+          <td><%= link_to "Edit user", edit_user_path(user) %></td>
           <td>
             <% if !current_user?(user) %>
                 <%= link_to "delete", user, method: :delete, data: { confirm: "You sure?" } %>
@@ -30,3 +50,5 @@
     </tbody>
   </table>
 </div>
+
+<%= will_paginate %>

@@ -1,5 +1,21 @@
 <h1>All books</h1>
 
+<div>
+  <%= form_for(@book_query) do |f| %>
+
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "search" %>
+
+    <%= f.label :author %>
+    <%= f.text_field :author, class: "search" %>
+
+    <%= f.label :id %>
+    <%= f.text_field :id, class: "search" %>
+
+    <%= f.submit "Search", class: "btn btn-primary search" %>
+  <% end %>
+</div>
+
 <div class="col-md-10">
   <table class="table table-striped">
     <thead>
@@ -7,6 +23,7 @@
         <th>#</th>
         <th>Title</th>
         <th>Author</th>
+        <th>Year</th>
         <th>Ordered?</th>
         <% if admin? %>
           <th>Edit</th>
@@ -19,6 +36,7 @@
           <td><%= book.id %></td>
           <td><%= link_to book.title, book_path(book) %></td>
           <td><%= book.author %></td>
+          <td><%= book.year %></td>
           <td><%= book.ordered %></td>
           <% if admin? %>
             <td><%= link_to "Edit entry", edit_book_path(book) %></td>
@@ -32,3 +50,5 @@
 <% if admin? %>
   <%= link_to "Add new book", new_book_path, class: "btn btn-lg btn-success right" %>
 <% end %>
+
+<%= will_paginate %>

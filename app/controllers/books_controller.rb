@@ -27,7 +27,8 @@ class BooksController < ApplicationController
   end
 
   def index
-    @books = Book.all
+    @book_query = Book.new
+    @books = Book.all.order(:ordered, :author, :title, :year).paginate(:page => params[:page], :per_page => 30)
   end
 
   def edit
@@ -44,11 +45,17 @@ class BooksController < ApplicationController
     end
   end
 
+  def search
+    safe_params = remove_empty(params.require(:book).permit(:title, :author, :id))
+    @book_query = Book.new
+    @book_query.attributes = safe_params
+
+    @books = Book.where(safe_params).order(:ordered, :author, :title, :year).paginate(:page => params[:page], :per_page => 30)
+    render 'index'
+  end
+
   private
     def book_params
       params.require(:book).permit(:title, :author, :year)
     end
-
-    # Before filters
-
 end
