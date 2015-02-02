@@ -15,12 +15,16 @@ Rails.application.routes.draw do
     end
 
     collection do
+      get  ''    => 'users#index', as: ''
+      post 'new' => 'users#create'
       post ''    => 'users#search'
     end
   end
 
   resources :books do
     collection do
+      get  ''    => 'books#index', as: ''
+      post 'new' => 'books#create'
       post ''    => 'books#search'
     end
   end
